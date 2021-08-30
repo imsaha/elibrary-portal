@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "elibrary-demo-4e335": {
+      "hosting": {
+        "elibrary-portal": [
+          "elibrary-demo-4e335"
+        ]
+      }
+    }
+  }
+}
