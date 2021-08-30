@@ -13,9 +13,10 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
 
 @NgModule({
-    declarations: [AppComponent, AuthComponent, LoginComponent],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
