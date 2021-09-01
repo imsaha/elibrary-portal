@@ -1,0 +1,42 @@
+<form method="POST" [formGroup]="loginForm" (ngSubmit)="login()">
+    <div>
+        <h3>Admin portal</h3>
+    </div>
+
+    <div>
+        <mat-form-field appearance="outline">
+            <mat-label>Email address</mat-label>
+            <input formControlName="email" matInput placeholder="you@example.com" type="email" />
+            <button type="button" mat-icon-button matSuffix>
+                <mat-icon>person</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+                formControlName="password"
+                matInput
+                [type]="passwordAsClearText ? 'password' : 'text'"
+            />
+            <button
+                type="button"
+                mat-icon-button
+                matSuffix
+                (click)="passwordAsClearText = !passwordAsClearText"
+            >
+                <mat-icon>{{ passwordAsClearText ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+
+    <div *ngIf="errorMessage">
+        <p style="color: red">{{ errorMessage }}</p>
+    </div>
+
+    <div style="text-align: right">
+        <button type="submit" mat-raised-button color="primary">Login</button>
+    </div>
+</form>

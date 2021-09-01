@@ -1,0 +1,65 @@
+::ng-deep me-auth {
+    background-color: #e6e6e6 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    nz-card {
+        min-width: 300px;
+        min-height: 400px;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    ::ng-deep me-auth {
+        nz-card {
+            max-width: 300px;
+        }
+    }
+}
+
+.container {
+    display: flex;
+    background-color: gray;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+
+    .left {
+        flex: 1;
+        background-color: #14533c;
+        // display: flex;
+        // align-items: center;
+        // justify-content: center;
+    }
+
+    .right {
+        flex: 1.5;
+    }
+}
+
+.logo-container {
+    padding: 10px 30px;
+    border-bottom: 3px solid #104733;
+    text-align: right;
+    img {
+        max-width: 38%;
+    }
+    h3 {
+        font-size: 26px;
+        color: #fff;
+    }
+}
+
+.inner-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img {
+    max-width: 100%;
+}

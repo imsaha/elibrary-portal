@@ -8,12 +8,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthTokenInterceptor } from './interceptors/token.interceptor';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environments/environment';
-import { AuthComponent } from './pages/auth/auth.component';
-import { LoginComponent } from './pages/auth/login/login.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
-import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { SharedModule } from './shared/shared.module';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { ApiLoaderInterceptor } from './interceptors/loader.Interceptor';
+import { ApiVersionInterceptor } from './interceptors/version.interceptor';
 
 @NgModule({
     declarations: [AppComponent],
@@ -22,11 +20,14 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
         AppRoutingModule,
         BrowserAnimationsModule,
         AngularFireModule.initializeApp(environment.firebase),
-        MatCardModule,
-        MatInputModule,
-        MatButtonModule,
+        SweetAlert2Module.forRoot(),
+        SharedModule,
     ],
-    providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true }],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: ApiLoaderInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ApiVersionInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}
