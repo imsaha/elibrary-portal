@@ -10,6 +10,7 @@ export class AlertService {
     public alert(options: SweetAlertOptions) {
         const baseOptions = {
             confirmButtonText: 'OK',
+            heightAuto: false,
         };
         return swal.fire({ ...baseOptions, ...options });
     }

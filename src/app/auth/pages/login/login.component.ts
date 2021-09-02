@@ -12,7 +12,6 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
-    loading = false;
     passwordAsClearText = false;
     errorMessage = '';
     constructor(
@@ -25,7 +24,7 @@ export class LoginComponent implements OnInit {
         titleService.setTitle('Login');
 
         this.loginForm = fb.group({
-            email: ['', [Validators.required, Validators.email]],
+            userId: ['', [Validators.required]],
             password: ['', [Validators.required]],
         });
     }
@@ -33,22 +32,12 @@ export class LoginComponent implements OnInit {
     ngOnInit(): void {}
 
     async login(): Promise<void> {
-        try {
-            this.loading = true;
-
-            const result = await this.authService.login(this.loginForm.value);
-            if (result == null || result === false) {
-                throw { message: 'Invalid login try.' };
-            }
-
-            const returnUrl = this.activatedRoute.snapshot.queryParams.ret;
-            this.router.navigate([returnUrl ?? '/admin']);
-        } catch (error) {
-            if (error instanceof Exception) {
-                this.errorMessage = error.message;
-            }
-        } finally {
-            this.loading = false;
+        const result = await this.authService.login(this.loginForm.value);
+        if (result == null || result === false) {
+            throw { message: 'Invalid login try.' };
         }
+
+        const returnUrl = this.activatedRoute.snapshot.queryParams.ret;
+        this.router.navigate([returnUrl ?? '/admin']);
     }
 }

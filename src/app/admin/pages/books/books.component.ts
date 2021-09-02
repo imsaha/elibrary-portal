@@ -3,6 +3,7 @@ import { IBook } from '../../models/books.model';
 import { BooksService } from '../../services/books/books.service';
 import { AlertService } from '../../../shared/services/alert/alert.service';
 import { LoaderService } from '../../../shared/services/loader/loader.service';
+import { AuthService } from '../../../auth/services/auth/auth.service';
 
 @Component({
     selector: 'app-books',

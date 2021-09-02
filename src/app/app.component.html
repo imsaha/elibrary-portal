@@ -1,1 +1,8 @@
-<router-outlet></router-outlet>
+<app-loader>
+    <h3>{{ actingRole }}</h3>
+
+    <button mat-button (click)="switchRole('admin')">Admin</button>
+    <button mat-button (click)="switchRole('user')">User</button>
+
+    <router-outlet></router-outlet>
+</app-loader>

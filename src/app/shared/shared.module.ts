@@ -8,13 +8,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TitleService } from 'src/app/shared/services/title/title.service';
 import { AlertService } from './services/alert/alert.service';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LoaderComponent } from './services/loader/loader.component';
 import { LoadingDialogComponent } from './components/loading-dialog/loading-dialog.component';
+import { ApiLoaderInterceptor } from '../interceptors/loader.Interceptor';
+import { HttpErrorInterceptor } from '../interceptors/httpError.interceptor';
+import { ApiVersionInterceptor } from '../interceptors/version.interceptor';
+import { AuthTokenInterceptor } from '../interceptors/token.interceptor';
 
 const modules = [
     CommonModule,
@@ -35,6 +39,13 @@ const modules = [
     declarations: [LoaderComponent, LoadingDialogComponent],
     imports: [modules],
     exports: [modules, LoaderComponent],
-    providers: [TitleService, AlertService],
+    providers: [
+        TitleService,
+        AlertService,
+        { provide: HTTP_INTERCEPTORS, useClass: ApiVersionInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ApiLoaderInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true },
+    ],
 })
 export class SharedModule {}

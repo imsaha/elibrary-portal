@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { from, merge, Observable } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 import { AuthService } from '../auth/services/auth/auth.service';
 
 @Injectable({
@@ -10,14 +10,19 @@ import { AuthService } from '../auth/services/auth/auth.service';
 export class AuthGuard implements CanActivate {
     constructor(private authService: AuthService, private router: Router) {}
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-        return this.authService.getAuthState().pipe(
-            map((x) => {
-                if (x === null || x.isAnonymous) {
-                    this.router.navigate(['/auth'], { queryParams: { ret: state.url } });
-                }
-                return x != null && !x.isAnonymous;
-            })
-        );
+    async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+        const token = await this.authService.getToken();
+        if (token === null) {
+            this.router.navigate(['/auth'], { queryParams: { ret: state.url } });
+            return false;
+        }
+
+        const role = await this.authService.getUserActingRole();
+        if (role == undefined) {
+            this.router.navigate(['/access-denied'], { queryParams: { ret: state.url } });
+            return false;
+        }
+
+        return true;
     }
 }

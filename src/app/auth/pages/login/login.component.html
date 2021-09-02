@@ -5,9 +5,9 @@
 
     <div>
         <mat-form-field appearance="outline">
-            <mat-label>Email address</mat-label>
-            <input formControlName="email" matInput placeholder="you@example.com" type="email" />
-            <button type="button" mat-icon-button matSuffix>
+            <mat-label>Username</mat-label>
+            <input formControlName="userId" matInput placeholder="username" />
+            <button tabindex="-1" type="button" mat-icon-button matSuffix>
                 <mat-icon>person</mat-icon>
             </button>
         </mat-form-field>
@@ -19,9 +19,10 @@
             <input
                 formControlName="password"
                 matInput
-                [type]="passwordAsClearText ? 'password' : 'text'"
+                [type]="passwordAsClearText ? 'text' : 'password'"
             />
             <button
+                tabindex="-1"
                 type="button"
                 mat-icon-button
                 matSuffix

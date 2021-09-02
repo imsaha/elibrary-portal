@@ -19,3 +19,12 @@ export class ApiLoaderInterceptor implements HttpInterceptor {
         );
     }
 }
+
+@Injectable()
+export class DemoInterceptor implements HttpInterceptor {
+    constructor() {}
+
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        return next.handle(request);
+    }
+}
